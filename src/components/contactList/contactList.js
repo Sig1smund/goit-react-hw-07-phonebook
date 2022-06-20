@@ -1,35 +1,42 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { removeContact } from 'redux/contactsSlice';
+import { useSelector } from 'react-redux';
+import {
+  useFetchContactsQuery,
+  useDeleteContactMutation,
+} from 'redux/contactsSlice';
+// import { removeContact } from 'redux/contactsSlice';
 import s from './contactList.module.css';
 
 export default function ContactList() {
-  const dispatch = useDispatch();
+  const { response } = useFetchContactsQuery();
+  const [deleteContacts] = useDeleteContactMutation();
+
+  // const dispatch = useDispatch();
   const filter = useSelector(state => state.filter.value);
   const contacts = useSelector(state => state.contacts.elements);
 
-  const filteredItems = () => {
+  const getFilteredItems = () => {
     const loweredFilter = filter.toLowerCase();
-    const filtered = contacts.filter(elem =>
+    const filtered = response.filter(elem =>
       elem.name.toLowerCase().includes(loweredFilter)
     );
     return filtered;
   };
 
+  const visibleItems = response ? getFilteredItems(response) : null;
+
   return (
     <ul className={s.list__block}>
-      {filteredItems().map(elem => {
-        return (
-          <li key={elem.id} className={s.contacts__item}>
-            {elem.name}: {elem.number}
-            <button
-              type="button"
-              onClick={() => dispatch(removeContact(elem.id))}
-            >
-              Delete
-            </button>
-          </li>
-        );
-      })}
+      {response &&
+        visibleItems.map(elem => {
+          return (
+            <li key={elem.id} className={s.contacts__item}>
+              {elem.name}: {elem.number}
+              <button type="button" onClick={() => deleteContacts(elem.id)}>
+                Delete
+              </button>
+            </li>
+          );
+        })}
     </ul>
   );
 }

@@ -1,17 +1,23 @@
 import { useState } from 'react';
 import { isEqual } from 'lodash';
-import { useDispatch, useSelector } from 'react-redux';
+import {
+  useAddContactMutation,
+  useFetchContactsQuery,
+} from 'redux/contactsSlice';
+// import { useDispatch, useSelector } from 'react-redux';
 import s from './contactForm.module.css';
-import { addContact } from 'redux/contactsSlice';
+// import { addContact } from 'redux/contactsSlice';
 import { nanoid } from '@reduxjs/toolkit';
 
 function ContactForm() {
+  const [addContact] = useAddContactMutation();
+  const { response } = useFetchContactsQuery();
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const contacts = useSelector(state => state.contacts.elements);
+  // const contacts = useSelector(state => state.contacts.elements);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const handleChange = e => {
     const { name, value } = e.currentTarget;
@@ -34,9 +40,9 @@ function ContactForm() {
     e.preventDefault();
     const newContact = { id: nanoid(), name: name, number: number };
 
-    const test = contacts.some(user => isEqual(newContact.number, user.number));
+    const test = response.find(user => newContact.number === user.number);
     !test
-      ? dispatch(addContact(newContact))
+      ? addContact(newContact)
       : alert(`Number ${newContact.number} is already been used in contacts!`);
 
     setName('');
