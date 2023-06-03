@@ -1,0 +1,66 @@
+.container {
+  width: 1200px;
+  height: 800px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.title {
+  margin: 0;
+  margin-bottom: 10px;
+  color: blue;
+}
+
+.form_container {
+  width: 500px;
+  padding: 15px;
+  margin: 0;
+  align-content: center;
+}
+
+.form {
+  width: 800px;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.input {
+  width: 277px;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid black;
+  outline: none;
+  margin-bottom: 10px;
+
+  color: red;
+}
+
+.contacts__label {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.button {
+  padding: 10px;
+  outline: none;
+  background-color: lightblue;
+  color: black;
+  cursor: pointer;
+  border-radius: 4px;
+  border: none;
+  font-weight: bold;
+}
+
+.button:active {
+  background-color: blue;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-left: 5px;
+  font-style: italic;
+}
