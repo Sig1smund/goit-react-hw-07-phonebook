@@ -2,8 +2,9 @@ import { useMemo } from "react";
 import { useSelector } from 'react-redux';
 import { filter } from '../../redux/filterSlice';
 import { useFetchContactsQuery, useDeleteContactMutation } from '../../redux/contactApi';
-// import { removeContact } from '../../redux/contactSlice';
+import { ToastContainer, toast } from 'react-toastify';
 import s from './contactList.module.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ContactList() {
   const { data } = useFetchContactsQuery();
@@ -30,18 +31,22 @@ export default function ContactList() {
   return (<ul className={s.list__block}>
     {data && getContacts().map(elem => {
       return (
+
         <li key={elem.id} className={s.contacts__item}>
           {elem.name}: {elem.number}
           <button
             disabled={isDeleting}
             className={s.button}
             type="button"
-            onClick={() => deleteContact(elem.id)}
+            onClick={() => deleteContact(elem.id) && toast.success(`Contact ${elem.name} deleted`)}
           >
             Delete
           </button>
         </li>
       );
     })}
+    {isDeleting && <ToastContainer
+      position="top-center"
+      autoClose={1500} />}
   </ul>);
 };
