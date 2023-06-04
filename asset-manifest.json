@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/react-hw7-sandbox/static/css/main.9def3395.css",
+    "main.js": "/react-hw7-sandbox/static/js/main.5731bc1f.js",
+    "static/js/787.f72999e0.chunk.js": "/react-hw7-sandbox/static/js/787.f72999e0.chunk.js",
+    "index.html": "/react-hw7-sandbox/index.html",
+    "main.9def3395.css.map": "/react-hw7-sandbox/static/css/main.9def3395.css.map",
+    "main.5731bc1f.js.map": "/react-hw7-sandbox/static/js/main.5731bc1f.js.map",
+    "787.f72999e0.chunk.js.map": "/react-hw7-sandbox/static/js/787.f72999e0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9def3395.css",
+    "static/js/main.5731bc1f.js"
+  ]
+}
