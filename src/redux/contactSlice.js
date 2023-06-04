@@ -4,6 +4,8 @@ export const contactsSlice = createSlice({
 	name: 'contacts',
 	initialState: {
 		elements: [],
+		isLoading: false,
+		error: null,
 	},
 	reducers: {
 		addContact(state, { payload }) {
