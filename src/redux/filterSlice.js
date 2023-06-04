@@ -13,3 +13,4 @@ export const filterSlice = createSlice({
 });
 
 export const { input } = filterSlice.actions;
+export const filter = state => state.filter.value;

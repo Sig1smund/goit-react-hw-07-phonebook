@@ -3,9 +3,10 @@ import { isEqual } from 'lodash';
 import {
   useAddContactMutation,
   useFetchContactsQuery,
-} from '../../redux/contactSlice';
-import { nanoid } from '@reduxjs/toolkit';
+} from '../../redux/contactApi';
+// import { nanoid } from '@reduxjs/toolkit';
 import s from './contactForm.module.css';
+
 
 const initialState = {
   name: '',
@@ -36,8 +37,6 @@ function reducer(state, action) {
 
 export default function ContactForm() {
   const [state, dispatchAction] = useReducer(reducer, initialState);
-  // const dispatch = useDispatch()
-  // const contacts = useSelector(state => state.contacts.elements);
   const [addContact] = useAddContactMutation();
   const { data } = useFetchContactsQuery();
 
@@ -61,7 +60,7 @@ export default function ContactForm() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const newContact = { id: nanoid(), name: state.name, number: state.number };
+    const newContact = { name: state.name, number: state.number };
 
     const test = data.some(user => isEqual(newContact.number, user.number));
     !test
@@ -82,7 +81,7 @@ export default function ContactForm() {
           name="name"
           value={state.name}
           onChange={handleChange}
-          // pattern="[A-Za-zА-Яа-яЁё-]+"
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
         />
@@ -97,7 +96,7 @@ export default function ContactForm() {
           name="number"
           value={state.number}
           onChange={handleChange}
-          // pattern="[0-9+-]+"
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
         />
